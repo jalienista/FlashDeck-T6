@@ -57,7 +57,7 @@ A página HTML gerada é autocontida: não precisa de servidor, biblioteca JavaS
 | **ALS - 25%** | Gramática em `flashdeck/grammar.lark`, lexer contextual e parser LALR(1) gerados pela biblioteca Lark, diagnóstico com linha e coluna e casos válidos/inválidos. |
 | **AS - 25%** | Mais de quatro verificações semânticas, incluindo frentes duplicadas, tags e categorias não declaradas, dificuldade fora de 1 a 5 e quantidade mínima de cards. |
 | **GCI - 25%** | Geração de HTML interativo, CSV para Anki e JSON opcional. |
-| **Entrega - 25%** | README, código documentado, testes automatizados, exemplos, scripts de instalação, roteiro do vídeo e checklist de entrega. |
+| **Entrega - 25%** | README, código documentado, testes automatizados, exemplos e scripts de instalação. |
 
 ---
 
@@ -382,4 +382,4 @@ Possíveis extensões:
 
 ## 14. Licença
 
-Projeto disponibilizado sob a licença MIT. Ajuste o nome dos autores no arquivo `LICENSE` antes da publicação.
+Projeto disponibilizado sob a licença MIT.
