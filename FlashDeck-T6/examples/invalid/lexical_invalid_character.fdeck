@@ -1,0 +1,21 @@
+deck "Erro Léxico" {
+    description: "Contém um caractere que não pertence à linguagem.";
+    tags: [teste];
+    categories: [erros];
+
+    card um {
+        front: "Pergunta 1";
+        back: "Resposta 1";
+        tags: [teste];
+        category: erros;
+        difficulty: @;
+    }
+
+    card dois {
+        front: "Pergunta 2";
+        back: "Resposta 2";
+        tags: [teste];
+        category: erros;
+        difficulty: 2;
+    }
+}

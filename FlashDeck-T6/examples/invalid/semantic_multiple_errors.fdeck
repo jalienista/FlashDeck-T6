@@ -1,0 +1,23 @@
+// Este arquivo demonstra a coleta de vários erros semânticos em uma única execução.
+deck "Múltiplos Erros" {
+    description: "Exemplo propositalmente inválido.";
+    tags: [lexico, lexico];
+    categories: [teoria];
+
+    card repetido {
+        front: "";
+        back: "";
+        tags: [ausente, ausente];
+        category: pratica;
+        difficulty: 8;
+        difficulty: 3;
+    }
+
+    card repetido {
+        front: "Pergunta";
+        back: "Pergunta";
+        tags: [lexico];
+        category: teoria;
+        difficulty: 2;
+    }
+}

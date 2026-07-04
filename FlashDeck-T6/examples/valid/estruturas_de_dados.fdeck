@@ -1,0 +1,29 @@
+deck "Estruturas de Dados" {
+    description: "Flashcards rápidos sobre estruturas lineares e árvores.";
+    tags: [lista, pilha, fila, arvore];
+    categories: [linear, nao_linear];
+
+    card pilha_lifo {
+        front: "Qual política de remoção caracteriza uma pilha?";
+        back: "LIFO: o último elemento inserido é o primeiro a ser removido.";
+        tags: [pilha, lista];
+        category: linear;
+        difficulty: 1;
+    }
+
+    card fila_fifo {
+        front: "Qual política de remoção caracteriza uma fila?";
+        back: "FIFO: o primeiro elemento inserido é o primeiro a ser removido.";
+        tags: [fila, lista];
+        category: linear;
+        difficulty: 1;
+    }
+
+    card busca_bst {
+        front: "Qual é o custo médio de busca em uma árvore binária de busca balanceada?";
+        back: "Theta(log n), pois a cada comparação uma parte da árvore é descartada.";
+        tags: [arvore];
+        category: nao_linear;
+        difficulty: 3;
+    }
+}

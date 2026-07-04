@@ -1,0 +1,54 @@
+// Exemplo completo de um deck válido.
+deck "Compiladores - Conceitos Essenciais" {
+    description: "Revisão das principais fases de um compilador e do uso de geradores de parser.";
+    tags: [lexico, sintatico, semantica, geracao, antlr];
+    categories: [conceitos, pratica];
+
+    card analisador_lexico {
+        front: "Qual é a função do analisador léxico?";
+        back: "Agrupar caracteres do código-fonte em tokens e identificar erros léxicos.";
+        tags: [lexico];
+        category: conceitos;
+        difficulty: 1;
+    }
+
+    card parser {
+        front: "O que o analisador sintático recebe e produz?";
+        back: "Recebe tokens e verifica se eles formam estruturas válidas segundo a gramática, normalmente produzindo uma árvore sintática.";
+        tags: [sintatico];
+        category: conceitos;
+        difficulty: 2;
+    }
+
+    card semantica {
+        front: "Por que algumas regras devem ser verificadas na análise semântica?";
+        back: "Porque dependem de contexto ou consistência global e não são convenientemente expressas apenas pela gramática.";
+        tags: [semantica];
+        category: conceitos;
+        difficulty: 3;
+    }
+
+    card geracao_codigo {
+        front: "O que ocorre na etapa de geração de código?";
+        back: "A representação validada do programa é traduzida para uma saída útil, como código de máquina, outra linguagem, HTML ou CSV.";
+        tags: [geracao];
+        category: conceitos;
+        difficulty: 2;
+    }
+
+    card parser_generator {
+        front: "Qual é a vantagem de utilizar um gerador de parser?";
+        back: "O parser é produzido automaticamente a partir da gramática, reduzindo trabalho manual e mantendo a implementação alinhada à especificação sintática.";
+        tags: [antlr, sintatico];
+        category: pratica;
+        difficulty: 3;
+    }
+
+    card teste_semantico {
+        front: "Dê um exemplo de erro semântico que a gramática pode aceitar.";
+        back: "Usar uma tag não declarada, repetir a frente de um card ou informar dificuldade fora do intervalo de 1 a 5.";
+        tags: [semantica];
+        category: pratica;
+        difficulty: 4;
+    }
+}

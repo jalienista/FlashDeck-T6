@@ -1,0 +1,21 @@
+deck "Tag Não Declarada" {
+    description: "Um card usa uma tag ausente do cabeçalho.";
+    tags: [declarada];
+    categories: [erros];
+
+    card primeiro {
+        front: "Pergunta 1";
+        back: "Resposta 1";
+        tags: [nao_declarada];
+        category: erros;
+        difficulty: 2;
+    }
+
+    card segundo {
+        front: "Pergunta 2";
+        back: "Resposta 2";
+        tags: [declarada];
+        category: erros;
+        difficulty: 3;
+    }
+}

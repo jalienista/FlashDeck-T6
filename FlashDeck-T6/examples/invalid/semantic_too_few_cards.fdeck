@@ -1,0 +1,13 @@
+deck "Deck Trivial" {
+    description: "Possui somente um card.";
+    tags: [teste];
+    categories: [erros];
+
+    card unico {
+        front: "Pergunta única";
+        back: "Resposta única";
+        tags: [teste];
+        category: erros;
+        difficulty: 1;
+    }
+}

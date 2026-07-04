@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flashdeck-compiler"
+version = "1.0.0"
+description = "Compilador de uma linguagem declarativa para baralhos de flashcards."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "PREENCHER - Integrante 1" },
+  { name = "PREENCHER - Integrante 2" },
+  { name = "PREENCHER - Integrante 3" }
+]
+dependencies = [
+  "lark>=1.1,<2"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10"
+]
+
+[project.scripts]
+flashdeck = "flashdeck.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["flashdeck*"]
+
+[tool.setuptools.package-data]
+flashdeck = ["grammar.lark", "templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]

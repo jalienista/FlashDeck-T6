@@ -1,0 +1,21 @@
+deck "Frentes Duplicadas" {
+    description: "As duas frentes são semanticamente iguais.";
+    tags: [teste];
+    categories: [erros];
+
+    card primeiro {
+        front: "O que é um token?";
+        back: "Uma unidade léxica.";
+        tags: [teste];
+        category: erros;
+        difficulty: 2;
+    }
+
+    card segundo {
+        front: "  o QUE é um TOKEN?  ";
+        back: "Outra resposta.";
+        tags: [teste];
+        category: erros;
+        difficulty: 3;
+    }
+}

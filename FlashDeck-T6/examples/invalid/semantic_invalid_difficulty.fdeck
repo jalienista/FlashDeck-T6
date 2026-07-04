@@ -1,0 +1,21 @@
+deck "Dificuldade Inválida" {
+    description: "A dificuldade deve permanecer entre 1 e 5.";
+    tags: [teste];
+    categories: [erros];
+
+    card primeiro {
+        front: "Pergunta 1";
+        back: "Resposta 1";
+        tags: [teste];
+        category: erros;
+        difficulty: 0;
+    }
+
+    card segundo {
+        front: "Pergunta 2";
+        back: "Resposta 2";
+        tags: [teste];
+        category: erros;
+        difficulty: 6;
+    }
+}

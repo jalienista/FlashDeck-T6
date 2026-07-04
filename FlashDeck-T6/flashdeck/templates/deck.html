@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="@@DESCRIPTION@@">
+  <title>@@TITLE@@ | FlashDeck</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #eef2ff;
+      --panel: rgba(255, 255, 255, 0.92);
+      --panel-strong: #ffffff;
+      --text: #172033;
+      --muted: #61708a;
+      --line: #d7def0;
+      --primary: #5b4cf0;
+      --primary-dark: #4433d5;
+      --accent: #13a887;
+      --danger: #d9485f;
+      --shadow: 0 20px 55px rgba(54, 67, 122, 0.16);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(91, 76, 240, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(19, 168, 135, 0.16), transparent 26%),
+        linear-gradient(145deg, #f7f8ff, var(--bg));
+    }
+
+    button, select, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+
+    .description {
+      max-width: 720px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.03rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(95px, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: 0 8px 28px rgba(54, 67, 122, 0.08);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, 0.7fr)) auto;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-strong);
+      color: var(--text);
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(91, 76, 240, 0.13);
+    }
+
+    .shuffle {
+      align-self: end;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 12px;
+      background: #e8e6ff;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+
+    .study-panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .progress-track {
+      height: 7px;
+      background: #e6e9f4;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 220ms ease;
+    }
+
+    .study-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      min-height: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #eeeffc;
+      color: #4a4f72;
+      font-size: 0.76rem;
+      font-weight: 750;
+    }
+
+    .badge.category { background: #ddf7ef; color: #08745f; }
+    .badge.difficulty { background: #fff2d9; color: #945f00; }
+
+    .card-stage {
+      padding: 22px;
+      perspective: 1200px;
+    }
+
+    .flashcard {
+      position: relative;
+      min-height: 390px;
+      border: 0;
+      width: 100%;
+      padding: 0;
+      background: transparent;
+      text-align: left;
+      transform-style: preserve-3d;
+      transition: transform 520ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .flashcard.revealed { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      padding: clamp(28px, 6vw, 72px);
+      border-radius: 22px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: auto;
+    }
+
+    .front {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.96), rgba(242,243,255,.96)),
+        var(--panel-strong);
+      border: 1px solid #dfe3f6;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      color: #f8fbff;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.16), transparent 32%),
+        linear-gradient(145deg, #5445e7, #257fbd 55%, #159878);
+    }
+
+    .side-label {
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .card-text {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(1.45rem, 4vw, 2.6rem);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      text-align: center;
+      white-space: pre-wrap;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .back .hint { color: rgba(255,255,255,.78); }
+
+    .navigation {
+      display: grid;
+      grid-template-columns: 1fr minmax(170px, 1.3fr) 1fr;
+      gap: 12px;
+      padding: 0 22px 22px;
+    }
+
+    .nav-button,
+    .reveal-button {
+      min-height: 50px;
+      border-radius: 14px;
+      font-weight: 850;
+    }
+
+    .nav-button {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--panel-strong);
+    }
+
+    .nav-button:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .reveal-button {
+      border: 0;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 10px 24px rgba(91, 76, 240, 0.24);
+    }
+
+    .empty-state {
+      display: none;
+      padding: 70px 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-state strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 1.25rem;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    kbd {
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: var(--panel-strong);
+      color: var(--text);
+      font-size: 0.74rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .stats { width: min(340px, 100%); }
+      .controls { grid-template-columns: repeat(2, 1fr); }
+      .field.search { grid-column: 1 / -1; }
+      .shuffle { min-height: 44px; }
+    }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 20px, 1120px); padding-top: 22px; }
+      .controls { grid-template-columns: 1fr; }
+      .field.search { grid-column: auto; }
+      .study-topbar { align-items: flex-start; flex-direction: column; }
+      .card-stage { padding: 12px; }
+      .flashcard { min-height: 420px; }
+      .navigation { grid-template-columns: 1fr 1fr; padding: 0 12px 12px; }
+      .reveal-button { grid-column: 1 / -1; grid-row: 1; }
+      .footer { flex-direction: column; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101526;
+        --panel: rgba(22, 29, 50, 0.94);
+        --panel-strong: #18203a;
+        --text: #edf1ff;
+        --muted: #aab5d0;
+        --line: #303a5b;
+        --shadow: 0 20px 55px rgba(0, 0, 0, 0.32);
+      }
+      body {
+        background:
+          radial-gradient(circle at 10% 10%, rgba(91, 76, 240, 0.2), transparent 30%),
+          radial-gradient(circle at 90% 15%, rgba(19, 168, 135, 0.13), transparent 26%),
+          linear-gradient(145deg, #0c1120, var(--bg));
+      }
+      .shuffle { background: #29265c; color: #c9c4ff; }
+      .front { background: linear-gradient(145deg, #1a2340, #161d35); border-color: #323e63; }
+      .badge { background: #293252; color: #d5dcf5; }
+      .badge.category { background: #123d38; color: #9cead8; }
+      .badge.difficulty { background: #493a1c; color: #ffdaa0; }
+      .progress-track { background: #242d49; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">◆ FlashDeck Study</div>
+        <h1 id="deck-title">@@TITLE@@</h1>
+        <p class="description" id="deck-description">@@DESCRIPTION@@</p>
+      </div>
+      <div class="stats" aria-label="Estatísticas do deck">
+        <div class="stat"><strong id="total-cards">0</strong><span>cards</span></div>
+        <div class="stat"><strong id="total-tags">0</strong><span>tags</span></div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Filtros de estudo">
+      <div class="field search">
+        <label for="search">Buscar</label>
+        <input id="search" type="search" placeholder="Procure na frente ou no verso...">
+      </div>
+      <div class="field">
+        <label for="tag-filter">Tag</label>
+        <select id="tag-filter"><option value="">Todas</option></select>
+      </div>
+      <div class="field">
+        <label for="category-filter">Categoria</label>
+        <select id="category-filter"><option value="">Todas</option></select>
+      </div>
+      <div class="field">
+        <label for="difficulty-filter">Dificuldade</label>
+        <select id="difficulty-filter">
+          <option value="">Todas</option>
+          <option value="1">1 - muito fácil</option>
+          <option value="2">2 - fácil</option>
+          <option value="3">3 - média</option>
+          <option value="4">4 - difícil</option>
+          <option value="5">5 - muito difícil</option>
+        </select>
+      </div>
+      <button class="shuffle" id="shuffle" type="button">Embaralhar</button>
+    </section>
+
+    <section class="study-panel" aria-live="polite">
+      <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+      <div id="study-content">
+        <div class="study-topbar">
+          <div class="badge-row" id="badges"></div>
+          <span id="counter">Card 0 de 0</span>
+        </div>
+        <div class="card-stage">
+          <button class="flashcard" id="flashcard" type="button" aria-label="Revelar verso do card">
+            <div class="card-face front">
+              <span class="side-label">Frente</span>
+              <p class="card-text" id="front-text"></p>
+              <span class="hint">Clique no card ou pressione Espaço para revelar</span>
+            </div>
+            <div class="card-face back">
+              <span class="side-label">Verso</span>
+              <p class="card-text" id="back-text"></p>
+              <span class="hint">Clique novamente para voltar à frente</span>
+            </div>
+          </button>
+        </div>
+        <div class="navigation">
+          <button class="nav-button" id="previous" type="button">← Anterior</button>
+          <button class="reveal-button" id="reveal" type="button">Revelar resposta</button>
+          <button class="nav-button" id="next" type="button">Próximo →</button>
+        </div>
+      </div>
+      <div class="empty-state" id="empty-state">
+        <strong>Nenhum card encontrado</strong>
+        Ajuste os filtros para continuar estudando.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Gerado pelo compilador FlashDeck.</span>
+      <span>Atalhos: <kbd>←</kbd> anterior, <kbd>→</kbd> próximo, <kbd>Espaço</kbd> revelar.</span>
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    const deck = @@DECK_JSON@@;
+    const state = {
+      cards: [...deck.cards],
+      filtered: [...deck.cards],
+      index: 0,
+      revealed: false
+    };
+
+    const elements = {
+      title: document.getElementById("deck-title"),
+      description: document.getElementById("deck-description"),
+      totalCards: document.getElementById("total-cards"),
+      totalTags: document.getElementById("total-tags"),
+      search: document.getElementById("search"),
+      tag: document.getElementById("tag-filter"),
+      category: document.getElementById("category-filter"),
+      difficulty: document.getElementById("difficulty-filter"),
+      shuffle: document.getElementById("shuffle"),
+      progress: document.getElementById("progress-bar"),
+      studyContent: document.getElementById("study-content"),
+      emptyState: document.getElementById("empty-state"),
+      badges: document.getElementById("badges"),
+      counter: document.getElementById("counter"),
+      flashcard: document.getElementById("flashcard"),
+      front: document.getElementById("front-text"),
+      back: document.getElementById("back-text"),
+      previous: document.getElementById("previous"),
+      next: document.getElementById("next"),
+      reveal: document.getElementById("reveal")
+    };
+
+    function populateSelect(select, values) {
+      values.forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    }
+
+    function difficultyLabel(value) {
+      const labels = {
+        1: "1 · muito fácil",
+        2: "2 · fácil",
+        3: "3 · média",
+        4: "4 · difícil",
+        5: "5 · muito difícil"
+      };
+      return labels[value] ?? String(value);
+    }
+
+    function createBadge(text, className = "") {
+      const badge = document.createElement("span");
+      badge.className = `badge ${className}`.trim();
+      badge.textContent = text;
+      return badge;
+    }
+
+    function setRevealed(revealed) {
+      state.revealed = revealed;
+      elements.flashcard.classList.toggle("revealed", revealed);
+      elements.flashcard.setAttribute(
+        "aria-label",
+        revealed ? "Mostrar a frente do card" : "Revelar verso do card"
+      );
+      elements.reveal.textContent = revealed ? "Mostrar pergunta" : "Revelar resposta";
+    }
+
+    function render() {
+      const hasCards = state.filtered.length > 0;
+      elements.studyContent.style.display = hasCards ? "block" : "none";
+      elements.emptyState.style.display = hasCards ? "none" : "block";
+
+      if (!hasCards) {
+        elements.progress.style.width = "0%";
+        return;
+      }
+
+      state.index = Math.max(0, Math.min(state.index, state.filtered.length - 1));
+      const card = state.filtered[state.index];
+      elements.front.textContent = card.front;
+      elements.back.textContent = card.back;
+      elements.counter.textContent = `Card ${state.index + 1} de ${state.filtered.length}`;
+      elements.progress.style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+      elements.previous.disabled = state.index === 0;
+      elements.next.disabled = state.index === state.filtered.length - 1;
+
+      elements.badges.replaceChildren();
+      elements.badges.appendChild(createBadge(card.category, "category"));
+      elements.badges.appendChild(createBadge(difficultyLabel(card.difficulty), "difficulty"));
+      card.tags.forEach(tag => elements.badges.appendChild(createBadge(`#${tag}`)));
+      setRevealed(false);
+    }
+
+    function applyFilters() {
+      const query = elements.search.value.trim().toLocaleLowerCase("pt-BR");
+      const selectedTag = elements.tag.value;
+      const selectedCategory = elements.category.value;
+      const selectedDifficulty = elements.difficulty.value;
+
+      state.filtered = state.cards.filter(card => {
+        const searchable = `${card.front} ${card.back}`.toLocaleLowerCase("pt-BR");
+        return (
+          (!query || searchable.includes(query)) &&
+          (!selectedTag || card.tags.includes(selectedTag)) &&
+          (!selectedCategory || card.category === selectedCategory) &&
+          (!selectedDifficulty || String(card.difficulty) === selectedDifficulty)
+        );
+      });
+      state.index = 0;
+      render();
+    }
+
+    function navigate(delta) {
+      const nextIndex = state.index + delta;
+      if (nextIndex >= 0 && nextIndex < state.filtered.length) {
+        state.index = nextIndex;
+        render();
+      }
+    }
+
+    function shuffleCards() {
+      for (let i = state.filtered.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [state.filtered[i], state.filtered[j]] = [state.filtered[j], state.filtered[i]];
+      }
+      state.index = 0;
+      render();
+    }
+
+    elements.title.textContent = deck.name;
+    elements.description.textContent = deck.description || "Deck de estudos gerado com FlashDeck.";
+    elements.totalCards.textContent = String(deck.cards.length);
+    elements.totalTags.textContent = String(deck.tags.length);
+    populateSelect(elements.tag, deck.tags);
+    populateSelect(elements.category, deck.categories);
+
+    elements.search.addEventListener("input", applyFilters);
+    elements.tag.addEventListener("change", applyFilters);
+    elements.category.addEventListener("change", applyFilters);
+    elements.difficulty.addEventListener("change", applyFilters);
+    elements.shuffle.addEventListener("click", shuffleCards);
+    elements.previous.addEventListener("click", () => navigate(-1));
+    elements.next.addEventListener("click", () => navigate(1));
+    elements.flashcard.addEventListener("click", () => setRevealed(!state.revealed));
+    elements.reveal.addEventListener("click", () => setRevealed(!state.revealed));
+
+    document.addEventListener("keydown", event => {
+      const activeTag = document.activeElement?.tagName;
+      const typing = activeTag === "INPUT" || activeTag === "SELECT" || activeTag === "TEXTAREA";
+      if (typing) return;
+
+      if (event.key === "ArrowLeft") navigate(-1);
+      if (event.key === "ArrowRight") navigate(1);
+      if (event.code === "Space") {
+        event.preventDefault();
+        setRevealed(!state.revealed);
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

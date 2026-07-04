@@ -1,0 +1,21 @@
+deck "Erro Sintático" {
+    description: "Falta um ponto e vírgula";
+    tags: [teste]
+    categories: [erros];
+
+    card um {
+        front: "Pergunta 1";
+        back: "Resposta 1";
+        tags: [teste];
+        category: erros;
+        difficulty: 1;
+    }
+
+    card dois {
+        front: "Pergunta 2";
+        back: "Resposta 2";
+        tags: [teste];
+        category: erros;
+        difficulty: 2;
+    }
+}

@@ -1,0 +1,40 @@
+// Gramática da linguagem FlashDeck.
+// O parser é gerado pela biblioteca Lark usando o algoritmo LALR(1).
+
+start: deck+
+
+deck: "deck" STRING "{" deck_item* "}"
+
+deck_item: description_decl
+         | tags_decl
+         | categories_decl
+         | card_decl
+
+description_decl: "description" ":" STRING ";"
+tags_decl: "tags" ":" "[" [identifier_list] "]" ";"
+categories_decl: "categories" ":" "[" [identifier_list] "]" ";"
+
+card_decl: "card" NAME "{" card_field* "}"
+
+card_field: front_field
+          | back_field
+          | card_tags_field
+          | category_field
+          | difficulty_field
+
+front_field: "front" ":" STRING ";"
+back_field: "back" ":" STRING ";"
+card_tags_field: "tags" ":" "[" [identifier_list] "]" ";"
+category_field: "category" ":" NAME ";"
+difficulty_field: "difficulty" ":" SIGNED_INT ";"
+
+identifier_list: NAME ("," NAME)*
+
+%import common.CNAME -> NAME
+%import common.ESCAPED_STRING -> STRING
+%import common.SIGNED_INT
+%import common.WS
+
+%ignore WS
+%ignore /\/\/[^\n]*/
+%ignore /(?s:\/\*.*?\*\/)/
