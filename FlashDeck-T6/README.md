@@ -1,6 +1,6 @@
 # FlashDeck Compiler
 
-> Compilador de uma linguagem declarativa para criação de baralhos de flashcards, com validação semântica e geração de uma aplicação HTML interativa e de um CSV compatível com o Anki.
+> O FlashDeck é uma linguagem desenvolvida para criação de baralhos de flashcards. O compilador realiza análise léxica, sintática e semântica dos arquivos .fdeck e gera os formatos HTML, CSV e JSON.
 
 ## Identificação do trabalho
 
