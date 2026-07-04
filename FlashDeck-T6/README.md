@@ -8,12 +8,10 @@
 - **Trabalho:** T6 - compilador completo para uma linguagem específica
 - **Linguagem criada:** FlashDeck
 - **Integrantes:**
-  - `PREENCHER - Nome completo, RA e e-mail`
-  - `PREENCHER - Nome completo, RA e e-mail`
-  - `PREENCHER - Nome completo, RA e e-mail`
+  - João Manoel Ribeiro Machado - 822447
+  - Julia Campanelli Granja - 823835
+  - Kevyn Marques - 820895
 - **Vídeo demonstrativo:** `PREENCHER - link do vídeo`
-
-Antes da entrega, substitua todos os textos marcados com `PREENCHER`.
 
 ---
 
