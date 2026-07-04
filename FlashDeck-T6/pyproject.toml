@@ -10,9 +10,9 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-  { name = "PREENCHER - Integrante 1" },
-  { name = "PREENCHER - Integrante 2" },
-  { name = "PREENCHER - Integrante 3" }
+  { name = "João Manoel Ribeiro Machado - 822447" },
+  { name = "Julia Campanelli Granja - 823835" },
+  { name = "Kevyn Marques - 820895" }
 ]
 dependencies = [
   "lark>=1.1,<2"
