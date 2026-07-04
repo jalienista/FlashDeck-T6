@@ -355,10 +355,6 @@ FlashDeck-T6/
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): decisões de implementação e fluxo interno;
 - [`docs/TESTING.md`](docs/TESTING.md): testes automatizados e manuais;
 - [`docs/TECHNICAL_REPORT.md`](docs/TECHNICAL_REPORT.md): relatório técnico do projeto;
-- [`docs/VIDEO_SCRIPT.md`](docs/VIDEO_SCRIPT.md): roteiro pronto para o vídeo;
-- [`docs/DELIVERY_CHECKLIST.md`](docs/DELIVERY_CHECKLIST.md): itens a conferir antes de enviar;
-- [`docs/ORAL_DEFENSE.md`](docs/ORAL_DEFENSE.md): perguntas prováveis e respostas para apresentação;
-- [`docs/VALIDATION_REPORT.md`](docs/VALIDATION_REPORT.md): registro das validações executadas.
 
 ---
 
